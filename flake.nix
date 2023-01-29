@@ -28,6 +28,7 @@
             installPhase = ''
               mkdir -p $out/ $out/bin
               mv opt/mdyalog/${shortVersion}/64/unicode/* $out/
+              sed -i"" "s|/opt/mdyalog/${shortVersion}/64/unicode|$out|" "$out/scriptbin/dyalogscript"
               # Fix for 'lib/cxdya63u64u.so' which for some reason needs .1 instead of packaged .2
               ln -s $out/lib/libodbcinst.so.2 $out/lib/libodbcinst.so.1
               ln -s $out/lib/libodbc.so.2 $out/lib/libodbc.so.1
