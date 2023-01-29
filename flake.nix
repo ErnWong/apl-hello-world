@@ -16,7 +16,7 @@
           dbus_daemon = super.dbus;
           gdk_pixbuf = super.gdk-pixbuf;
         };
-        dyalog-overlay = import (dyalog.outPath + "/overlay.nix");
+        dyalog-overlay = import "${dyalog}/overlay.nix";
         upgrade-dyalog = self: super: {
           dyalog = super.dyalog.overrideAttrs (finalAttrs: previousAttrs: rec {
             version = "18.2.45405";
