@@ -25,7 +25,11 @@
         #packages = { inherit mypkg runTests; };
 
         devShell = pkgs.mkShell {
-          buildInputs = [ pkgs.dyalog pkgs.ride ];
+          buildInputs = [
+            pkgs.dyalog
+            pkgs.ride
+            pkgs.arrayfire
+          ];
         };
       }
     );
