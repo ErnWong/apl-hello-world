@@ -10,7 +10,6 @@
   outputs = { self, nixpkgs, flake-utils, dyalog }:
     flake-utils.lib.eachSystem [ "x86_64-darwin" "x86_64-linux" "i686-linux" ] (system:
       let
-        #overlay = (import dyalog).overlay;
         compat = self: super: {
           electron_6 = super.electron;
           dbus_daemon = super.dbus;
