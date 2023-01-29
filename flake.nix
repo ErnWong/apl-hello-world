@@ -40,11 +40,14 @@
           dyalog-overlay
           upgrade-dyalog
         ]; };
+        mypkg = pkgs.writeShellScriptBin "ugglui" ''
+          ${pkgs.dyalog}/scriptbin/dyalogscript ${./.}/src/main.apl
+        '';
       in
       {
-        #defaultPackage = mypkg;
+        defaultPackage = mypkg;
 
-        #packages = { inherit mypkg runTests; };
+        packages = { inherit mypkg; };
 
         devShell = pkgs.mkShell {
           buildInputs = [
