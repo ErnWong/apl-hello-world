@@ -1,5 +1,17 @@
 {
   "nodes": {
+    "co-dfns": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-/Z5UZsap+M32v4VVLybbPwIntBdETjNV+ogI1Jg1oUs=",
+        "type": "tarball",
+        "url": "https://github.com/Co-dfns/Co-dfns/archive/refs/tags/v4.1.2.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/Co-dfns/Co-dfns/archive/refs/tags/v4.1.2.tar.gz"
+      }
+    },
     "dyalog": {
       "flake": false,
       "locked": {
@@ -49,6 +61,7 @@
     },
     "root": {
       "inputs": {
+        "co-dfns": "co-dfns",
         "dyalog": "dyalog",
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs"

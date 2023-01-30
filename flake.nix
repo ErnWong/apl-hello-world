@@ -5,9 +5,12 @@
 
     dyalog.url = "github:markus1189/dyalog-nixos";
     dyalog.flake = false;
+
+    co-dfns.url = "https://github.com/Co-dfns/Co-dfns/archive/refs/tags/v4.1.2.tar.gz";
+    co-dfns.flake = false;
   };
 
-  outputs = { self, nixpkgs, flake-utils, dyalog }:
+  outputs = { self, nixpkgs, flake-utils, dyalog, co-dfns }:
     flake-utils.lib.eachSystem [ "x86_64-darwin" "x86_64-linux" "i686-linux" ] (system:
       let
         compat = self: super: {
@@ -39,10 +42,13 @@
           dyalog-overlay
           upgrade-dyalog
         ]; };
+        co-dfns-user-command = builtins.filterSource
+          (path: type: path == "${co-dfns}/codfns.dyalog")
+          co-dfns;
         mypkg = pkgs.writeShellScriptBin "ugglui" ''
           export AF_PATH="${pkgs.arrayfire}"
           export LD_LIBRARY_PATH="$(pwd):$LD_LIBRARY_PATH"
-          ${pkgs.dyalog}/scriptbin/dyalogscript ${./.}/src/main.apl
+          ${pkgs.dyalog}/scriptbin/dyalogscript codfns-path=${co-dfns-user-command} ${./.}/src/main.apl
         '';
       in
       {
