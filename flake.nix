@@ -37,17 +37,22 @@
             '';
           });
         };
-        pkgs = import nixpkgs { inherit system; overlays = [
-          compat
-          dyalog-overlay
-          upgrade-dyalog
-        ]; };
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = [
+            compat
+            dyalog-overlay
+            upgrade-dyalog
+          ];
+        };
         co-dfns-user-command = builtins.filterSource
           (path: type: path == "${co-dfns}/codfns.dyalog")
           co-dfns;
         mypkg = pkgs.writeShellScriptBin "ugglui" ''
           export AF_PATH="${pkgs.arrayfire}"
           export LD_LIBRARY_PATH="$(pwd):$LD_LIBRARY_PATH"
+          export LD_LIBRARY_PATH="${pkgs.forge}/lib:$LD_LIBRARY_PATH"
           ${pkgs.dyalog}/scriptbin/dyalogscript codfns-path=${co-dfns-user-command} ${./.}/src/main.apl
         '';
       in
@@ -61,6 +66,7 @@
             pkgs.dyalog
             pkgs.ride
             pkgs.arrayfire
+            pkgs.forge # Needed by arrayfire when using Window()?
           ];
         };
       }
