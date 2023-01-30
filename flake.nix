@@ -40,6 +40,8 @@
           upgrade-dyalog
         ]; };
         mypkg = pkgs.writeShellScriptBin "ugglui" ''
+          export AF_PATH="${pkgs.arrayfire}"
+          export LD_LIBRARY_PATH="$(pwd):$LD_LIBRARY_PATH"
           ${pkgs.dyalog}/scriptbin/dyalogscript ${./.}/src/main.apl
         '';
       in
