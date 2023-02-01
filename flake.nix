@@ -59,7 +59,12 @@
           export AF_PATH="${pkgs.arrayfire}"
           export LD_LIBRARY_PATH="$(pwd):$LD_LIBRARY_PATH"
           export LD_LIBRARY_PATH="${pkgs.forge}/lib:$LD_LIBRARY_PATH"
+
           ${pkgs.dyalog}/scriptbin/dyalogscript codfns-path=${co-dfns-user-command} ${./.}/src/main.apl
+          # Swap above with the following to use a locally installed co-dfns,
+          # where tmpcdfns is a directory containing the codfns.dyalog file
+          # and nothing else.
+          #${pkgs.dyalog}/scriptbin/dyalogscript codfns-path=$(pwd)/tmpcdfns ${./.}/src/main.apl
         '';
       in
       {
