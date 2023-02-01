@@ -37,6 +37,11 @@
             '';
           });
         };
+        arrayfire-debug-symbols = self: super: {
+          arrayfire = super.enableDebugging (super.arrayfire.overrideAttrs (finalAttrs: previousAttrs: {
+            dontStrip = true;
+          }));
+        };
         pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
@@ -44,6 +49,7 @@
             compat
             dyalog-overlay
             upgrade-dyalog
+            arrayfire-debug-symbols
           ];
         };
         co-dfns-user-command = builtins.filterSource
